@@ -22,10 +22,11 @@ import org.beangle.commons.lang.time.{HourMinute, WeekTime}
 import org.beangle.data.model.pojo.DateRange
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class Session(var beginOn: LocalDate, var endOn: LocalDate) {
 
-  var days = Collections.newSet[LocalDate]
+  var dates = Collections.newSet[LocalDate]
 
   var beginAt: HourMinute = _
 
@@ -39,9 +40,38 @@ class Session(var beginOn: LocalDate, var endOn: LocalDate) {
     if (wt.weekstate.value != 0) {
       if wt.firstDay.isBefore(beginOn) then this.beginOn = wt.firstDay
       if wt.lastDay.isAfter(endOn) then this.endOn = wt.lastDay
-      days ++= wt.dates
+      dates ++= wt.dates
       beginAt = wt.beginAt
       endAt = wt.endAt
     }
+  }
+
+  override def toString: String = {
+    val contents = new StringBuilder
+    if beginAt != null && beginAt.value > 0 then
+      val dates = this.dates.toList.sorted
+      var thisMonth = -1
+      val pattern1 = DateTimeFormatter.ofPattern("M-d")
+      val pattern2 = DateTimeFormatter.ofPattern("d")
+      val datesb = dates.map { date =>
+        if date.getMonthValue != thisMonth then
+          thisMonth = date.getMonthValue
+          date.format(pattern1)
+        else
+          date.format(pattern2)
+      }.mkString(",")
+      contents.append(datesb)
+      contents.append(" ")
+      contents.append(beginAt.toString()).append("~").append(endAt.toString)
+    else
+      val pattern3 = DateTimeFormatter.ofPattern("MM-dd")
+      contents.append(beginOn.format(pattern3))
+      contents.append("~").append(endOn.format(pattern3))
+      times foreach { t =>
+        contents.append(" ").append(t)
+      }
+    end if
+    contents.append(" ").append(places)
+    contents.mkString
   }
 }

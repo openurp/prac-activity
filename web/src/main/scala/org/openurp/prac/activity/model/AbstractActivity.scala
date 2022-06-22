@@ -42,6 +42,14 @@ abstract class AbstractActivity extends LongId {
   /** 会话列表 */
   var schedules: mutable.Buffer[AbstractSchedule] = Collections.newBuffer[AbstractSchedule]
 
+  def teacherNames: String = {
+    teachers.map(_.name).appendAll(externTeacher).mkString(",")
+  }
+
+  def scheduleContent: String = {
+    sessions.map(x => x.toString).mkString("\r\n")
+  }
+
   def merge(): Unit = {
     val copyed = Collections.newBuffer(schedules)
     copyed foreach { ns =>
@@ -69,8 +77,7 @@ abstract class AbstractActivity extends LongId {
           e.times = s.times
           e.places = s.places
           map.put(key, e)
-          if s.weekTime != null then
-            e.add(s.weekTime)
+          if s.weekTime != null then e.add(s.weekTime)
     }
     map.values.toBuffer.sortBy(_.beginOn)
   }
