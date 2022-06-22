@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orm>
+  <mapping class="org.openurp.prac.activity.model.DefaultMapping" name="activity"/>
+  <naming>
+    <profile package="org.openurp.prac.activity.model" pluralize="true" schema="prac" prefix="ac_"/>
+  </naming>
+</orm>
