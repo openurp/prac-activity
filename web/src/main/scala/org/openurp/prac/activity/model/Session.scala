@@ -23,6 +23,11 @@ import org.beangle.data.model.pojo.DateRange
 
 import java.time.LocalDate
 
+/**
+ * 表示一次连续的时间安排，不论时间是否按周分布
+ * @param beginOn
+ * @param endOn
+ */
 class Session(var beginOn: LocalDate, var endOn: LocalDate) {
 
   var days = Collections.newSet[LocalDate]

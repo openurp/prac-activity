@@ -17,19 +17,44 @@
 
 package org.openurp.prac.activity.web.action
 
-import org.beangle.commons.lang.time.WeekTime
+import org.beangle.commons.lang.time.{WeekTime, Weeks}
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.model.CourseType
+import org.openurp.base.edu.code.CourseType
 import org.openurp.base.model.Semester
 import org.openurp.code.edu.model.TeachLangType
-import org.openurp.prac.activity.model.{CourseActivity, CourseSchedule}
+import org.openurp.prac.activity.model.{AbstractSchedule, CourseActivity, CourseSchedule}
+import org.openurp.prac.activity.web.helper.DateTable
 import org.openurp.starter.edu.helper.ProjectSupport
 
 import java.time.LocalDate
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 class CourseActivityAction extends RestfulAction[CourseActivity] with ProjectSupport {
+
+  def datetables(): View = {
+    val semesterId = intId("courseActivity.semester")
+    val semester = entityDao.get(classOf[Semester], semesterId)
+    val fromWeek = getInt("fromWeek", 1)
+    val toWeek = getInt("toWeek", Weeks.between(semester.beginOn, semester.endOn))
+    val query = OqlBuilder.from(classOf[CourseActivity], "a")
+    query.where("a.project=:project and a.semester=:semester", getProject, semester)
+    val activities = entityDao.search(query)
+    val schedules = new mutable.HashMap[LocalDate, mutable.Buffer[AbstractSchedule]]
+    for (activity <- activities; schedule <- activity.schedules; date <- schedule.weekTime.dates) {
+      val ac = schedules.getOrElseUpdate(date, new mutable.ArrayBuffer[AbstractSchedule])
+      ac.addOne(schedule)
+    }
+    val dateTables = new mutable.ArrayBuffer[DateTable]
+    (fromWeek to toWeek) foreach { i =>
+      val weekdates = DateTable.weekdates(semester, i)
+      dateTables ++= DateTable.apply(weekdates.head, weekdates.last, schedules)
+    }
+    put("dateTables", dateTables)
+    forward()
+  }
 
   override protected def indexSetting(): Unit = {
     val semester = getId("semester") match {

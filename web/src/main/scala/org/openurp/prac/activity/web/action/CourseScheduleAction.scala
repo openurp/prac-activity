@@ -23,7 +23,7 @@ import org.beangle.commons.lang.time.{HourMinute, WeekState, WeekTime}
 import org.beangle.ems.app.Ems
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.model.CourseType
+import org.openurp.base.edu.code.CourseType
 import org.openurp.base.model.{Semester, User}
 import org.openurp.code.edu.model.{TeachLangType, TeachingMethod}
 import org.openurp.prac.activity.model.{CourseActivity, CourseSchedule}

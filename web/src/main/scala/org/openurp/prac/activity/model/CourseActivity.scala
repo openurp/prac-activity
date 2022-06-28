@@ -17,7 +17,7 @@
 
 package org.openurp.prac.activity.model
 
-import org.openurp.base.edu.code.model.CourseType
+import org.openurp.base.edu.code.CourseType
 import org.openurp.base.edu.model.Course
 import org.openurp.code.edu.model.TeachLangType
 import org.openurp.edu.clazz.model.Schedule

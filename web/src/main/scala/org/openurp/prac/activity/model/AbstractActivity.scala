@@ -69,8 +69,7 @@ abstract class AbstractActivity extends LongId {
           e.times = s.times
           e.places = s.places
           map.put(key, e)
-          if s.weekTime != null then
-            e.add(s.weekTime)
+          if s.weekTime != null then e.add(s.weekTime)
     }
     map.values.toBuffer.sortBy(_.beginOn)
   }

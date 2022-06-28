@@ -25,6 +25,7 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("课表汇总",action.method('datetables',null,null,"_blank"));
   [/@]
   [@b.row]
     [@b.boxcol/]
