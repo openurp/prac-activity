@@ -42,6 +42,14 @@ abstract class AbstractActivity extends LongId {
   /** 会话列表 */
   var schedules: mutable.Buffer[AbstractSchedule] = Collections.newBuffer[AbstractSchedule]
 
+  def teacherNames: String = {
+    teachers.map(_.name).appendAll(externTeacher).mkString(",")
+  }
+
+  def scheduleContent: String = {
+    sessions.map(x => x.toString).mkString("\r\n")
+  }
+
   def merge(): Unit = {
     val copyed = Collections.newBuffer(schedules)
     copyed foreach { ns =>

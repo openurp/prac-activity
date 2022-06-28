@@ -1,6 +1,6 @@
 [@b.head/]
 [@b.toolbar title="维护课程模块"] bar.addBack();[/@]
-<div class="container">
+<div>
   <div class="row">
     <div  [#if pracActivity.persisted]class="col-5"[#else]class="col-12"[/#if]>
     [@b.form action=b.rest.save(pracActivity) theme="list"]

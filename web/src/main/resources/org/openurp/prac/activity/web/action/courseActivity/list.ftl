@@ -9,7 +9,7 @@
 [#list activity.sessions as sn]
    [#if sn.beginAt?? && sn.beginAt.value>0]
        [#assign thisMonth="--"]
-       [#list sn.days?sort as date]
+       [#list sn.dates?sort as date]
        [#if date?string("MM")!=thisMonth][#assign thisMonth=date?string("MM")]${date?string("M-d")}[#t]
        [#else]${date?string("d")}[/#if][#t]
        [#sep],[/#list][#t]
@@ -17,7 +17,7 @@
    [#else]
      ${sn.beginOn?string("MM-dd")}~${sn.endOn?string("MM-dd")} ${sn.times!}
    [/#if]
-   ${sn.places!}
+   ${sn.places!}[#if sn_has_next]<br>[/#if]
 [/#list]
 [/#macro]
 [@b.grid items=courseActivities var="courseActivity"]
@@ -26,6 +26,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("课表汇总",action.method('datetables',null,null,"_blank"));
+    bar.addItem("${b.text('action.export')}",action.exportData("courseName:课程名称,department.name:开课院系,langType.name:授课语言,clazzName:教学班,teacherNames:授课教师,scheduleContent:课程安排,stdCount:人数",null,'fileName=课程模块'));
   [/@]
   [@b.row]
     [@b.boxcol/]
