@@ -24,9 +24,9 @@ ThisBuild / description := "The OpenURP Prac Activity"
 ThisBuild / homepage := Some(url("http://openurp.github.io/prac-activity/index.html"))
 ThisBuild / resolvers += Resolver.mavenLocal
 
-val apiVer = "0.26.0"
-val starterVer = "0.0.21"
-val baseVer = "0.1.30"
+val apiVer = "0.33.0"
+val starterVer = "0.3.2"
+val baseVer = "0.4.1"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_edu_api = "org.openurp.edu" % "openurp-edu-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
@@ -49,7 +49,7 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-prac-activity-webapp",
     common,
-    libraryDependencies ++= Seq(logback_classic, ehcache, hibernate_jcache)
+    libraryDependencies ++= Seq(logback_classic, hibernate_jcache)
   ).dependsOn(web)
 
 publish / skip := true

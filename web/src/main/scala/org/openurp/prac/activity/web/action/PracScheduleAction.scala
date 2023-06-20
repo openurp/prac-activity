@@ -24,10 +24,10 @@ import org.beangle.ems.app.Ems
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.code.CourseType
-import org.openurp.base.model.{Semester, User}
+import org.openurp.base.model.{Project, Semester, User}
 import org.openurp.code.edu.model.{TeachLangType, TeachingMethod}
 import org.openurp.prac.activity.model.{PracActivity, PracSchedule}
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.temporal.ChronoUnit
 import java.time.{Duration, LocalDate}
@@ -48,6 +48,8 @@ class PracScheduleAction extends RestfulAction[PracSchedule] with ProjectSupport
   }
 
   override protected def editSetting(schedule: PracSchedule): Unit = {
+    given project: Project = getProject
+
     schedule.activity = entityDao.get(classOf[PracActivity], schedule.activity.id)
     val semester = schedule.activity.semester
     put("semester", semester)

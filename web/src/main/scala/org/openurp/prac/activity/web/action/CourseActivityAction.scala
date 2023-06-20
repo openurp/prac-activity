@@ -20,22 +20,22 @@ package org.openurp.prac.activity.web.action
 import org.beangle.commons.lang.time.{WeekTime, Weeks}
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.support.action.{ExportSupport, RestfulAction}
 import org.openurp.base.edu.code.CourseType
-import org.openurp.base.model.Semester
+import org.openurp.base.model.{Project, Semester}
 import org.openurp.code.edu.model.TeachLangType
 import org.openurp.prac.activity.model.{AbstractSchedule, CourseActivity, CourseSchedule}
 import org.openurp.prac.activity.web.helper.DateTable
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-class CourseActivityAction extends RestfulAction[CourseActivity] with ProjectSupport {
+class CourseActivityAction extends RestfulAction[CourseActivity], ExportSupport[CourseActivity], ProjectSupport {
 
   def datetables(): View = {
-    val semesterId = intId("courseActivity.semester")
+    val semesterId = getIntId("courseActivity.semester")
     val semester = entityDao.get(classOf[Semester], semesterId)
     val fromWeek = getInt("fromWeek", 1)
     val toWeek = getInt("toWeek", Weeks.between(semester.beginOn, semester.endOn))
@@ -57,12 +57,10 @@ class CourseActivityAction extends RestfulAction[CourseActivity] with ProjectSup
   }
 
   override protected def indexSetting(): Unit = {
-    val semester = getId("semester") match {
-      case Some(sid) => entityDao.get(classOf[Semester], sid.toInt)
-      case None => getCurrentSemester
-    }
-    put("semester", semester)
-    put("project", getProject)
+    given project: Project = getProject
+
+    put("semester", getSemester)
+    put("project", project)
     put("departments", getDeparts)
     super.indexSetting()
   }
@@ -78,6 +76,8 @@ class CourseActivityAction extends RestfulAction[CourseActivity] with ProjectSup
   }
 
   override protected def editSetting(entity: CourseActivity): Unit = {
+    given project: Project = getProject
+
     getInt("courseActivity.semester.id") foreach { semesterId =>
       entity.semester = entityDao.get(classOf[Semester], semesterId)
     }

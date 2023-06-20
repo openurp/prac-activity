@@ -20,22 +20,21 @@ package org.openurp.prac.activity.web.action
 import org.beangle.commons.lang.time.WeekTime
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
-import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.model.Semester
+import org.beangle.webmvc.support.action.{ExportSupport, RestfulAction}
+import org.openurp.base.model.{Project, Semester}
 import org.openurp.prac.activity.model.{ActivityType, PracActivity}
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
 
-class PracActivityAction extends RestfulAction[PracActivity] with ProjectSupport {
+class PracActivityAction extends RestfulAction[PracActivity], ExportSupport[PracActivity], ProjectSupport {
 
   override protected def indexSetting(): Unit = {
-    val semester = getId("semester") match {
-      case Some(sid) => entityDao.get(classOf[Semester], sid.toInt)
-      case None => getCurrentSemester
-    }
-    put("semester", semester)
-    put("project", getProject)
+    given project: Project = getProject
+
+    println(getInt("semester.id"))
+    put("semester", getSemester)
+    put("project", project)
     put("departments", getDeparts)
     super.indexSetting()
   }
@@ -51,6 +50,8 @@ class PracActivityAction extends RestfulAction[PracActivity] with ProjectSupport
   }
 
   override protected def editSetting(entity: PracActivity): Unit = {
+    given project: Project = getProject
+
     getInt("pracActivity.semester.id") foreach { semesterId =>
       entity.semester = entityDao.get(classOf[Semester], semesterId)
     }

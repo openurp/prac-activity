@@ -19,9 +19,10 @@ package org.openurp.prac.activity.model
 
 import org.beangle.data.model.IntId
 import org.beangle.data.model.pojo.{Coded, Named}
+import org.openurp.code.CodeBean
 
 /** 活动类型
  */
-class ActivityType extends IntId with Coded with Named {
+class ActivityType extends CodeBean{
 
 }

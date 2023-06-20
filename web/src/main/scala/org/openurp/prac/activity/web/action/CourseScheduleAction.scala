@@ -24,15 +24,15 @@ import org.beangle.ems.app.Ems
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.code.CourseType
-import org.openurp.base.model.{Semester, User}
+import org.openurp.base.model.{Project, Semester, User}
 import org.openurp.code.edu.model.{TeachLangType, TeachingMethod}
 import org.openurp.prac.activity.model.{CourseActivity, CourseSchedule}
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.temporal.ChronoUnit
 import java.time.{Duration, LocalDate}
 
-class CourseScheduleAction extends RestfulAction[CourseSchedule] with ProjectSupport {
+class CourseScheduleAction extends RestfulAction[CourseSchedule], ProjectSupport {
   override def search(): View = {
     val query = super.getQueryBuilder
     get("courseSchedule.activity.id") match {
@@ -48,6 +48,8 @@ class CourseScheduleAction extends RestfulAction[CourseSchedule] with ProjectSup
   }
 
   override protected def editSetting(schedule: CourseSchedule): Unit = {
+    given project: Project = getProject
+
     schedule.activity = entityDao.get(classOf[CourseActivity], schedule.activity.id)
     val semester = schedule.activity.semester
     put("semester", semester)

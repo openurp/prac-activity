@@ -1,7 +1,7 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="实践项目"/]
-[@urp_base.semester_bar value=semester/]
+[@base.semester_bar value=semester/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="searchForm" action="!search" target="activitylist" title="ui.searchForm" theme="search"]
