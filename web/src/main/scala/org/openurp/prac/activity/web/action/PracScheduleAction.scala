@@ -23,16 +23,15 @@ import org.beangle.commons.lang.time.{HourMinute, WeekState, WeekTime}
 import org.beangle.ems.app.Ems
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.CourseType
-import org.openurp.base.model.{Project, Semester, User}
-import org.openurp.code.edu.model.{TeachLangType, TeachingMethod}
+import org.openurp.base.model.{Project, User}
+import org.openurp.code.edu.model.TeachingMethod
 import org.openurp.prac.activity.model.{PracActivity, PracSchedule}
 import org.openurp.starter.web.support.ProjectSupport
 
+import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-import java.time.{Duration, LocalDate}
 
-class PracScheduleAction extends RestfulAction[PracSchedule] with ProjectSupport {
+class PracScheduleAction extends RestfulAction[PracSchedule], ProjectSupport {
   override def search(): View = {
     val query = super.getQueryBuilder
     get("pracSchedule.activity.id") match {

@@ -21,9 +21,8 @@ import org.beangle.commons.lang.time.{WeekTime, Weeks}
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.{ExportSupport, RestfulAction}
-import org.openurp.base.edu.code.CourseType
 import org.openurp.base.model.{Project, Semester}
-import org.openurp.code.edu.model.TeachLangType
+import org.openurp.code.edu.model.{CourseType, TeachLangType}
 import org.openurp.prac.activity.model.{AbstractSchedule, CourseActivity, CourseSchedule}
 import org.openurp.prac.activity.web.helper.DateTable
 import org.openurp.starter.web.support.ProjectSupport

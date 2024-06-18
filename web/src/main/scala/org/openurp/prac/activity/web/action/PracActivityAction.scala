@@ -32,7 +32,6 @@ class PracActivityAction extends RestfulAction[PracActivity], ExportSupport[Prac
   override protected def indexSetting(): Unit = {
     given project: Project = getProject
 
-    println(getInt("semester.id"))
     put("semester", getSemester)
     put("project", project)
     put("departments", getDeparts)

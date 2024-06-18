@@ -9,7 +9,7 @@
       [@b.textfields names="courseActivity.courseName;课程名称"/]
       [@b.select name="courseActivity.department.id" items=departments empty="..." label="开课院系"/]
 
-      [@b.datepicker name="date" label="上课日期" maxDate=semester.endOn?string minDate=semester.beginOn?string/]
+      [@b.date name="date" label="上课日期" maxDate=semester.endOn?string minDate=semester.beginOn?string/]
       <input type="hidden" name="orderBy" value="courseActivity.courseName"/>
     [/@]
     </div>

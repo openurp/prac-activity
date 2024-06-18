@@ -9,7 +9,7 @@
       [@b.textfields names="pracActivity.activityName;活动名称"/]
       [@b.select name="pracActivity.department.id" items=departments empty="..." label="实施主体"/]
 
-      [@b.datepicker name="date" label="上课日期" maxDate=semester.endOn?string minDate=semester.beginOn?string/]
+      [@b.date name="date" label="上课日期" maxDate=semester.endOn?string minDate=semester.beginOn?string/]
       <input type="hidden" name="orderBy" value="pracActivity.activityName"/>
     [/@]
     </div>

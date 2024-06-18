@@ -21,7 +21,6 @@ import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.time.WeekTime
 import org.beangle.data.model.LongId
 import org.beangle.data.model.pojo.{DateRange, Remark}
-import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.User
 import org.openurp.code.edu.model.TeachingMethod
 

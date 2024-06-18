@@ -1,5 +1,5 @@
-import org.openurp.parent.Dependencies._
-import org.openurp.parent.Settings._
+import org.openurp.parent.Dependencies.*
+import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.prac.activity"
 ThisBuild / version := "0.0.1-SNAPSHOT"
@@ -22,11 +22,10 @@ ThisBuild / developers := List(
 
 ThisBuild / description := "The OpenURP Prac Activity"
 ThisBuild / homepage := Some(url("http://openurp.github.io/prac-activity/index.html"))
-ThisBuild / resolvers += Resolver.mavenLocal
 
-val apiVer = "0.33.0"
-val starterVer = "0.3.2"
-val baseVer = "0.4.1"
+val apiVer = "0.39.3"
+val starterVer = "0.3.33"
+val baseVer = "0.4.28"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_edu_api = "org.openurp.edu" % "openurp-edu-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
@@ -40,9 +39,9 @@ lazy val web = (project in file("web"))
   .settings(
     name := "openurp-prac-activity-web",
     common,
-    libraryDependencies ++= Seq(beangle_webmvc_support, beangle_data_orm, beangle_ems_app),
+    libraryDependencies ++= Seq(beangle_webmvc, beangle_model, beangle_ems_app),
     libraryDependencies ++= Seq(openurp_base_api, openurp_stater_web, openurp_base_tag),
-    libraryDependencies ++= Seq(beangle_serializer_text, openurp_edu_api)
+    libraryDependencies ++= Seq(beangle_serializer, openurp_edu_api)
   )
 lazy val webapp = (project in file("webapp"))
   .enablePlugins(WarPlugin, UndertowPlugin, TomcatPlugin)
