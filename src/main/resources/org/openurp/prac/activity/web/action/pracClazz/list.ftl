@@ -43,8 +43,8 @@
     [@b.col width="8%" property="langType.name" title="授课语言"]${pracClazz.langType.name}[/@]
     [@b.col width="10%" property="clazzName" title="教学班"]${pracClazz.clazzName}[/@]
     [@b.col title="课程安排"]
-       [#assign courseSchedule][@schedule pracClazz/][/#assign]
-       ${courseSchedule}
+       [#assign s][@schedule pracClazz/][/#assign]
+       ${s}
     [/@]
     [@b.col width="5%" property="stdCount" title="人数"]${pracClazz.stdCount}[/@]
   [/@]

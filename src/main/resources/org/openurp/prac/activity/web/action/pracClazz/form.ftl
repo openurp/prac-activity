@@ -20,7 +20,7 @@
     </div>
     [#if pracClazz.persisted]
     <div class="col-7" style="border-left: solid 1px burlywood;">
-    [@b.div href="course-schedule!search?courseSchedule.activity.id=${pracClazz.id}"/]
+    [@b.div href="prac-clazz-schedule!search?pracClazzSchedule.activity.id=${pracClazz.id}"/]
     </div>
     [/#if]
   </div>
