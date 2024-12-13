@@ -18,10 +18,27 @@
 package org.openurp.prac.activity.web.action
 
 import org.beangle.commons.cdi.BindModule
+import org.openurp.prac.activity.service.AutoStatPracticeHourJob
+import org.openurp.prac.activity.service.impl.StdPracticeServiceImpl
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler
+import org.springframework.scheduling.config.{CronTask, ScheduledTaskRegistrar}
 
 class DefaultModule extends BindModule {
   override protected def binding(): Unit = {
     bind(classOf[PracClazzAction], classOf[PracClazzScheduleAction])
-    bind(classOf[PracActivityAction],classOf[PracActivityScheduleAction])
+    bind(classOf[PracActivityAction], classOf[PracActivityScheduleAction])
+
+    bind(classOf[StdPracticeHourAction], classOf[StdPracticeInfoAction])
+    bind(classOf[StdPracticeServiceImpl])
+
+    bind(classOf[ConcurrentTaskScheduler])
+    bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasks", "triggerTasksList")
+    bind(classOf[AutoStatPracticeHourJob]).lazyInit(false)
+    bindTask(classOf[AutoStatPracticeHourJob], "0 0 7,10,13,16,19 * * *") //every three hours
+  }
+
+  protected def bindTask[T <: Runnable](clazz: Class[T], expression: String): Unit = {
+    val taskName = clazz.getName
+    bind(taskName + "Task", classOf[CronTask]).constructor(ref(taskName), expression).lazyInit(false)
   }
 }
