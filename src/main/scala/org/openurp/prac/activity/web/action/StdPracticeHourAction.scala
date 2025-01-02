@@ -17,13 +17,11 @@
 
 package org.openurp.prac.activity.web.action
 
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.{ExportSupport, RestfulAction}
 import org.beangle.webmvc.view.View
 import org.openurp.base.model.Project
 import org.openurp.code.prac.model.StdPracticeCategory
-import org.openurp.edu.program.domain.CoursePlanProvider
 import org.openurp.prac.activity.model.StdPracticeHour
 import org.openurp.prac.activity.service.StdPracticeService
 import org.openurp.starter.web.support.ProjectSupport
