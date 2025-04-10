@@ -31,6 +31,8 @@ class DefaultModule extends BindModule {
     bind(classOf[StdPracticeHourAction], classOf[StdPracticeInfoAction])
     bind(classOf[StdPracticeServiceImpl])
 
+    bind(classOf[std.PracticeHourAction])
+
     bind(classOf[ConcurrentTaskScheduler])
     bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasks", "triggerTasksList")
     bind(classOf[AutoStatPracticeHourJob]).lazyInit(false)
