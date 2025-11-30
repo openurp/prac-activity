@@ -19,10 +19,10 @@ package org.openurp.prac.activity.service
 
 import org.beangle.commons.logging.Logging
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.orm.hibernate.DaoJob
+import org.beangle.data.orm.hibernate.AbstractDaoTask
 import org.openurp.prac.activity.model.StdPracticeHour
 
-class AutoStatPracticeHourJob extends DaoJob, Logging {
+class AutoStatPracticeHourJob extends AbstractDaoTask, Logging {
   var stdPracticeService: StdPracticeService = _
 
   def execute(): Unit = {

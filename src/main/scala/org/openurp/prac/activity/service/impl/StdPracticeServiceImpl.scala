@@ -19,7 +19,6 @@ package org.openurp.prac.activity.service.impl
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.checkerframework.checker.units.qual.g
 import org.openurp.base.service.SemesterService
 import org.openurp.code.edu.model.{CourseTakeType, GradingMode}
 import org.openurp.edu.grade.model.{CourseGrade, Grade}
